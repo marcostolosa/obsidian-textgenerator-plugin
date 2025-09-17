@@ -17,7 +17,17 @@ import {
 import { arrayBufferToBase64 } from "obsidian";
 import { default_values } from "./custom/custom";
 
-type LLMProviderType = "Default (Custom)" | "OpenAI Chat (Langchain)" | "OpenAI Instruct (Langchain)" | "OpenAI Agent (Langchain)" | "Google GenerativeAI (Langchain)" | "Google Palm (Langchain)" | "MistralAI Chat (Langchain)" | "Anthropic Chat (Langchain)" | "Anthropic Legacy (Custom)";
+type LLMProviderType =
+  | "Default (Custom)"
+  | "OpenAI Chat (Langchain)"
+  | "OpenAI Instruct (Langchain)"
+  | "OpenAI Agent (Langchain)"
+  | "Google GenerativeAI (Langchain)"
+  | "Google Palm (Langchain)"
+  | "MistralAI Chat (Langchain)"
+  | "Anthropic Chat (Langchain)"
+  | "Anthropic Legacy (Custom)"
+  | "Stackspot Quick Command";
 
 interface ModelType {
   encoding: string;

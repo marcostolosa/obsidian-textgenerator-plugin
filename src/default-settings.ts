@@ -110,7 +110,22 @@ Title: {{title}}
   },
   displayErrorInEditor: false,
   LLMProviderProfiles: {},
-  LLMProviderOptions: {},
+  LLMProviderOptions: {
+    "Stackspot Quick Command": {
+      baseUrl: "https://genai-code-buddy-api.stackspot.com",
+      tokenUrl: "",
+      client_id: "",
+      client_secret: "",
+      commandSlug: "obsidian",
+      conversationId: "",
+      scope: "",
+      audience: "",
+      pollIntervalMs: 2000,
+      maxWaitMs: 180000,
+      sendMessages: true,
+      CORSBypass: true,
+    },
+  },
   LLMProviderOptionsKeysHashed: {},
 };
 
