@@ -1,5 +1,6 @@
 import CustomProvider from "./custom/custom";
 import AnthropicCustomProvider from "./custom/anthropic";
+import StackspotQuickCommandProvider from "./custom/stackspot";
 
 import LangchainOpenAIChatProvider from "./langchain/openaiChat";
 import LangchainMistralAIChatProvider from "./langchain/mistralaiChat";
@@ -47,6 +48,7 @@ export const defaultProviders = [
 
   // anthropic custom
   AnthropicCustomProvider,
+  StackspotQuickCommandProvider,
 
   // LOCClone1,
   // LOCClone2,

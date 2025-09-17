@@ -611,7 +611,13 @@ export default class TextGeneratorPlugin extends Plugin {
     Object.entries(this.settings?.LLMProviderOptions).forEach(([key1, l1]) => {
       if (typeof l1 != "object") return;
       Object.entries(l1).forEach(([key2, l2]) => {
-        if (key2.toLowerCase().includes("key") && typeof l2 == "string") {
+        const lowerKey = key2.toLowerCase();
+        if (
+          typeof l2 == "string" &&
+          (lowerKey.includes("key") ||
+            lowerKey.includes("secret") ||
+            lowerKey.includes("token"))
+        ) {
           keyList.push(`${key1}.${key2}`);
         }
       });
@@ -635,7 +641,13 @@ export default class TextGeneratorPlugin extends Plugin {
     Object.entries(LLMProviderOptions).forEach(([key1, l1]) => {
       if (typeof l1 != "object") return;
       Object.entries(l1).forEach(([key2, l2]) => {
-        if (key2.toLowerCase().includes("key") && typeof l2 == "string") {
+        const lowerKey = key2.toLowerCase();
+        if (
+          typeof l2 == "string" &&
+          (lowerKey.includes("key") ||
+            lowerKey.includes("secret") ||
+            lowerKey.includes("token"))
+        ) {
           set(LLMProviderOptions, `${key1}.${key2}`, "");
         }
       });

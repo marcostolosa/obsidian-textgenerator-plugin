@@ -120,28 +120,35 @@ export default class AnthropicLegacyProvider
           />
         </SettingItem>
 
-        {vars.map((v: string) => (
-          <SettingItem
-            key={v}
-            name={v}
-            register={props.register}
-            sectionId={props.sectionId}
-          >
-            <Input
-              value={config[v]}
-              placeholder={`Enter your ${v}`}
-              type={v.toLowerCase().contains("key") ? "password" : "text"}
-              setValue={async (value) => {
-                config[v] = value;
-                global.triggerReload();
-                if (v.toLowerCase().contains("key"))
-                  global.plugin.encryptAllKeys();
-                // TODO: it could use a debounce here
-                await global.plugin.saveSettings();
-              }}
-            />
-          </SettingItem>
-        ))}
+        {vars.map((v: string) => {
+          const lowerKey = v.toLowerCase();
+          const isSensitive =
+            lowerKey.includes("key") ||
+            lowerKey.includes("secret") ||
+            lowerKey.includes("token");
+
+          return (
+            <SettingItem
+              key={v}
+              name={v}
+              register={props.register}
+              sectionId={props.sectionId}
+            >
+              <Input
+                value={config[v]}
+                placeholder={`Enter your ${v}`}
+                type={isSensitive ? "password" : "text"}
+                setValue={async (value) => {
+                  config[v] = value;
+                  global.triggerReload();
+                  if (isSensitive) global.plugin.encryptAllKeys();
+                  // TODO: it could use a debounce here
+                  await global.plugin.saveSettings();
+                }}
+              />
+            </SettingItem>
+          );
+        })}
 
         <div className="plug-tg-flex plug-tg-flex-col plug-tg-gap-2">
           <div className="plug-tg-text-lg plug-tg-opacity-70">Useful links</div>

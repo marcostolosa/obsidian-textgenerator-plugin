@@ -138,8 +138,16 @@ export default class DefaultCustomProvider
           </SettingItem>
         )}
 
-        {vars.map((v: string) =>
-          v == "api_key" ? null : (
+        {vars.map((v: string) => {
+          if (v == "api_key") return null;
+
+          const lowerKey = v.toLowerCase();
+          const isSensitive =
+            lowerKey.includes("key") ||
+            lowerKey.includes("secret") ||
+            lowerKey.includes("token");
+
+          return (
             <SettingItem
               key={v}
               name={v}
@@ -149,19 +157,18 @@ export default class DefaultCustomProvider
               <Input
                 value={config[v]}
                 placeholder={`Enter your ${v}`}
-                type={v.toLowerCase().contains("key") ? "password" : "text"}
+                type={isSensitive ? "password" : "text"}
                 setValue={async (value) => {
                   config[v] = value;
                   global.triggerReload();
-                  if (v.toLowerCase().contains("key"))
-                    global.plugin.encryptAllKeys();
+                  if (isSensitive) global.plugin.encryptAllKeys();
                   // TODO: it could use a debounce here
                   await global.plugin.saveSettings();
                 }}
               />
             </SettingItem>
-          )
-        )}
+          );
+        })}
 
 
         <SettingItem
